@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的电脑</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        .desktop {
+            width: 100vw;
+            height: 100vh;
+            background: url('https://i2.hdslb.com/bfs/archive/db0dd70c86c2088dfd1783080c9db8eb429c32d6.jpg') no-repeat center;
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+        }
+        .desktop-icon {
+            position: absolute;
+            width: 80px;
+            text-align: center;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .desktop-icon:hover { background: rgba(255,255,255,0.2); }
+        .browser-icon { top: 30px; left: 30px; }
+        .folder-icon { top: 150px; left: 30px; }
+        .weixun-icon { top: 270px; left: 30px; }
+        .desktop-icon i { font-size: 48px; color: #fff; margin-bottom: 6px; }
+        .desktop-icon span { color: #fff; font-size: 14px; text-shadow: 1px 1px 2px #000; }
+
+        /* 诡异红色倒计时（永久显示） */
+        #terrorDay {
+            position: absolute;
+            bottom: 50px;
+            right: 30px;
+            font-size: 26px;
+            font-weight: 900;
+            color: #ff2a2a; /* 诡异红 */
+            text-shadow: 0 0 12px #000, 0 0 20px #ff0000;
+            background: rgba(0,0,0,0.5);
+            padding: 14px 22px;
+            border-radius: 10px;
+            display: none;
+            z-index: 999;
+            font-family: "SimSun", serif;
+        }
+
+        .taskbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 48px;
+            background: rgba(20,20,20,0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+        .start-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .taskbar-time {
+            margin-left: auto;
+            color: white;
+            font-size: 14px;
+            line-height: 48px;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop">
+        <div class="desktop-icon browser-icon" onclick="openBrowser()">
+            <i class="fa-brands fa-chrome"></i>
+            <span>千度浏览器</span>
+        </div>
+        <div class="desktop-icon folder-icon" onclick="alert('本地文件')">
+            <i class="fa-solid fa-folder"></i>
+            <span>本地文件</span>
+        </div>
+        <div class="desktop-icon weixun-icon" onclick="alert('微讯')">
+            <i class="fa-brands fa-weixin" style="color:#07c160"></i>
+            <span>微讯</span>
+        </div>
+
+        <!-- 红色诡异倒计时 -->
+        <div id="terrorDay">Day 2 - 还剩 6 天</div>
+
+        <div class="taskbar">
+            <div class="start-btn"><i class="fa-brands fa-windows"></i></div>
+            <div class="taskbar-time" id="time"></div>
+        </div>
+    </div>
+
+    <script>
+        function openBrowser() {
+            window.open('千度浏览器.html', '_blank');
+        }
+
+        // 接收触发 → 永久显示红色倒计时
+        window.addEventListener('message', function(e) {
+            if(e.data === 'showDay'){
+                document.getElementById('terrorDay').style.display = 'block';
+            }
+        });
+
+        // 任务栏时间
+        function updateTime() {
+            document.getElementById('time').innerText = new Date().toLocaleTimeString();
+        }
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>

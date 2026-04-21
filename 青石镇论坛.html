@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青石镇论坛 - 本地杂谈</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑", sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* 头部 */
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 24px;
+        }
+        .nav {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .nav a {
+            color: #ecf0f1;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        /* 帖子列表 */
+        .post-list {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .post-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        .post-item:hover {
+            background: #fafafa;
+        }
+        .post-item h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .post-item.top h3 {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .post-meta {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        /* 关键词样式 */
+        .place-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .key-star {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .quote-text {
+            background: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            cursor: help;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 头部 -->
+<div class="header">
+    <h1>青石镇论坛 · 本地杂谈</h1>
+    <div class="nav">
+        <a href="#">首页</a>
+        <a href="#">本地新闻</a>
+        <a href="#">悬案探秘</a>
+        <a href="#">生活闲聊</a>
+    </div>
+</div>
+
+<!-- 帖子列表页面 -->
+<div id="list" class="post-list">
+    <!-- 点击新开页面跳转到 青石镇论坛案件详情.html -->
+    <a href="青石镇论坛案件详情.html" target="_blank" style="text-decoration:none;">
+        <div class="post-item top">
+            <h3>七年未解的悬案——青石镇妈妈亲手杀死女儿</h3>
+            <div class="post-meta">楼主：真相追寻者 · 7分钟前 · 3.2万阅读</div>
+        </div>
+    </a>
+
+    <!-- 随机生成帖子 -->
+    <div class="post-item"><h3>青石镇老桥翻新，预计下个月通车</h3><div class="post-meta">本地小灵通 · 今天 09:12 · 1245阅读</div></div>
+    <div class="post-item"><h3>求助！家里的猫半夜总对着空房间叫，是不是有说法？</h3><div class="post-meta">铲屎官一号 · 昨天 22:30 · 5689阅读</div></div>
+    <div class="post-item"><h3>七年前的那场暴雨，你们还记得吗？和悬案同一天</h3><div class="post-meta">老街居民 · 昨天 18:45 · 8762阅读</div></div>
+    <div class="post-item"><h3>讨论：林婉清到底是精神病，还是被人控制了？</h3><div class="post-meta">悬疑爱好者 · 昨天 15:20 · 1.5万阅读</div></div>
+    <div class="post-item"><h3>青石镇卫生院搬迁新址，看病更方便了</h3><div class="post-meta">健康顾问 · 昨天 10:11 · 890阅读</div></div>
+    <div class="post-item"><h3>深夜探秘废弃老宅，拍到诡异光点（慎入）</h3><div class="post-meta">探险阿凯 · 3天前 · 2.8万阅读</div></div>
+    <div class="post-item"><h3>有没有人认识当年出警的民警？想了解真相</h3><div class="post-meta">求真相 · 3天前 · 7854阅读</div></div>
+    <div class="post-item"><h3>青石镇特产集市本周六开市，约起！</h3><div class="post-meta">美食探店 · 4天前 · 2311阅读</div></div>
+    <div class="post-item"><h3>灵异还是人为？我整理了悬案所有疑点</h3><div class="post-meta">推理大师 · 5天前 · 1.9万阅读</div></div>
+    <div class="post-item"><h3>女儿失踪三天，青石镇父亲急寻线索</h3><div class="post-meta">寻亲家属 · 1周前 · 4.3万阅读</div></div>
+    <div class="post-item"><h3>当年的五角星图案，镇上老人说见过</h3><div class="post-meta">知情人匿名 · 1周前 · 2.1万阅读</div></div>
+    <div class="post-item"><h3>青石镇水库水位下降，露出奇怪石碑</h3><div class="post-meta">户外爱好者 · 2周前 · 1.4万阅读</div></div>
+    <div class="post-item"><h3>心理医生分析：林婉清的行为不符合常规精神病</h3><div class="post-meta">专业分析 · 2周前 · 9870阅读</div></div>
+    <div class="post-item"><h3>求辟谣！悬案和镇上的旧传说有关系吗？</h3><div class="post-meta">理性讨论 · 3周前 · 1.6万阅读</div></div>
+    <div class="post-item"><h3>我是林婉清的邻居，当年她性格特别温柔</h3><div class="post-meta">匿名用户 · 1个月前 · 5.2万阅读</div></div>
+</div>
+
+</body>
+</html>

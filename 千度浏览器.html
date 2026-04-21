@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>千度浏览器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body { overflow: hidden; }
+
+        /* 螺旋水印 */
+        #spiral {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><path d="M100,100 C100,130 130,160 100,160 C70,160 70,130 100,130 C130,130 130,100 100,100 C70,100 70,70 100,70 C130,70 130,40 100,40" fill="none" stroke="black" stroke-opacity="0.14" stroke-width="6" transform="rotate(180 100 100)"/></svg>');
+            background-repeat: repeat;
+            z-index: 9998;
+            display: none;
+        }
+
+        /* 黑屏 */
+        #blackScreen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: #000;
+            z-index: 10000;
+            display: none;
+        }
+
+        /* 红字倒计时页面 */
+        #redPage {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: #d80000;
+            color: #000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+            font-family: "SimSun", serif;
+        }
+        #day7 {
+            font-size: 240px;
+            font-weight: 900;
+            letter-spacing: 15px;
+        }
+        #msg {
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* 恢复按钮 */
+        #backBtn {
+            margin-top: 60px;
+            padding: 16px 40px;
+            font-size: 22px;
+            font-weight: bold;
+            background: #000;
+            color: #d80000;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: none;
+        }
+        #backBtn:hover {
+            background: #222;
+        }
+
+        /* 浏览器界面 */
+        .container {
+            width: 100vw; height: 100vh;
+            display: flex; flex-direction: column;
+        }
+        .searchBar {
+            padding: 12px 20px;
+            background: #f8f9fa;
+            display: flex; gap: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        #searchInput {
+            flex: 1; height: 42px;
+            border: 1px solid #ccc;
+            border-radius: 21px;
+            padding: 0 20px;
+            outline: none;
+            font-size: 16px;
+        }
+        .searchBtn {
+            padding: 0 25px;
+            background: #2d7df2;
+            color: white;
+            border: none;
+            border-radius: 21px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* 搜索结果（显示关联网页名） */
+        #result {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: #1a0dab;
+        }
+        .link {
+            padding: 10px 0;
+            cursor: pointer;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+
+        .body {
+            flex: 1;
+            display: flex;
+            padding: 0 20px 20px 20px;
+        }
+        .history {
+            width: 260px;
+            border-right: 1px solid #eee;
+            padding-right: 15px;
+        }
+        .history h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .historyItem {
+            padding: 6px 10px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+        .historyItem:hover {
+            background: #f5f5f5;
+        }
+        .content {
+            flex: 1;
+            padding-left: 20px;
+        }
+        /* 时间戳样式 */
+        .timeStamp {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div id="spiral"></div>
+    <div id="blackScreen"></div>
+
+    <div id="redPage">
+        <div id="day7">7天</div>
+        <div id="msg">归元返母，命续七日。七年前未完成的事，轮到你了。</div>
+        <button id="backBtn" onclick="closeRedPage()">继续</button>
+    </div>
+
+    <div class="container">
+        <div class="searchBar">
+            <input id="searchInput" placeholder="搜索">
+            <button class="searchBtn" onclick="doSearch()">搜索</button>
+        </div>
+
+        <!-- 搜索后显示关联网页 -->
+        <div id="result"></div>
+
+        <div class="body">
+            <div class="history">
+                <h3>历史记录</h3>
+                <div id="historyList"></div>
+            </div>
+            <div class="content"></div>
+        </div>
+    </div>
+
+    <script>
+        let history = [];
+        let cond = { blog: false, lin: false, qs: false };
+        let endTriggered = false;
+
+        // 页面加载时自动添加固定历史记录
+        window.onload = function() {
+            addFixedHistory();
+        };
+
+        // 添加固定历史记录：青石镇 七日 女童
+        function addFixedHistory() {
+            let list = document.getElementById('historyList');
+            let item = document.createElement('div');
+            item.className = 'historyItem';
+            
+            // 显示内容 + 凌晨3:33时间戳
+            item.innerHTML = `
+                青石镇 七日 女童
+                <div class="timeStamp">今天 03:33</div>
+            `;
+            
+            // 点击打开青石镇论坛.html
+            item.onclick = () => {
+                window.open('青石镇论坛.html', '_blank');
+            };
+            
+            list.appendChild(item);
+        }
+
+        // 搜索 → 显示网页名称
+        function doSearch() {
+            let val = document.getElementById('searchInput').value.trim();
+            if (!val) return;
+
+            // 加入历史记录
+            if (!history.includes(val)) {
+                history.push(val);
+                renderHistory();
+            }
+
+            showResult(val);
+        }
+
+        // 显示关联网页名字
+        function showResult(val) {
+            let res = document.getElementById('result');
+            res.innerHTML = '';
+
+            if (val.includes('归元返母')) {
+                res.innerHTML += '<div class="link" onclick="openBlog()">都市怪谈博客</div>';
+            }
+            if (val.includes('林婉清')) {
+                res.innerHTML += '<div class="link" onclick="openLin()">判决新闻</div>';
+            }
+            if (val.includes('青石镇')) {
+                res.innerHTML += '<div class="link" onclick="openQs()">青石镇官网</div>';
+            }
+            // 新增：搜索五角星
+            if (val.includes('五角星')) {
+                res.innerHTML += '<div class="link" onclick="openStar()">神秘学论坛</div>';
+            }
+            // 新增：搜索青石镇邪教
+            if (val.includes('青石镇邪教')) {
+                res.innerHTML += '<div class="link" onclick="openCult()">青石镇邪教</div>';
+            }
+        }
+
+        // 打开对应页面
+        function openBlog() { cond.blog = true; window.open('都市怪谈博客.html', '_blank'); checkEnd(); }
+        function openLin() { cond.lin = true; window.open('判决新闻.html', '_blank'); checkEnd(); }
+        function openQs() { cond.qs = true; window.open('青石镇官网.html', '_blank'); checkEnd(); }
+        // 新增页面打开函数
+        function openStar() { window.open('神秘学论坛.html', '_blank'); }
+        function openCult() { window.open('青石镇邪教.html', '_blank'); }
+
+        // 渲染历史记录
+        function renderHistory() {
+            let list = document.getElementById('historyList');
+            // 清空原有内容，保留固定历史
+            list.innerHTML = '';
+            // 重新添加固定历史
+            addFixedHistory();
+            
+            history.forEach(item => {
+                let div = document.createElement('div');
+                div.className = 'historyItem';
+                div.innerText = item;
+                div.onclick = () => {
+                    document.getElementById('searchInput').value = item;
+                    showResult(item);
+                };
+                list.appendChild(div);
+            });
+        }
+
+        // 检查触发结局
+        function checkEnd() {
+            if (endTriggered) return;
+            if (cond.blog && cond.lin && cond.qs) {
+                endTriggered = true;
+                startEnd();
+            }
+        }
+
+        // 开始剧情
+        function startEnd() {
+            let black = document.getElementById('blackScreen');
+            let red = document.getElementById('redPage');
+            let btn = document.getElementById('backBtn');
+
+            black.style.display = 'block';
+            setTimeout(() => {
+                black.style.display = 'none';
+                red.style.display = 'flex';
+                setTimeout(() => {
+                    btn.style.display = 'block'; // 显示按钮
+                }, 1000);
+            }, 3000);
+        }
+
+        // 点击按钮恢复浏览器 + 显示水印
+        function closeRedPage() {
+            document.getElementById('redPage').style.display = 'none';
+            document.getElementById('spiral').style.display = 'block';
+
+            // 通知桌面显示倒计时
+            if (window.opener) {
+                window.opener.postMessage('showDay', '*');
+            }
+        }
+    </script>
+</body>
+</html>
