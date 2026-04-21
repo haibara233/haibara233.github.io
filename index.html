@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>归途·七日咒 | 七日轮回，归途将至</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0d;
+            color: #e0e0e0;
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(20, 20, 30, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(15, 15, 25, 0.3) 0%, transparent 40%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 顶部暗色遮罩条 */
+        .header {
+            width: 100%;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #222;
+            position: relative;
+        }
+
+        .title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 6px;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 12px rgba(180,180,220,0.2);
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #999;
+            letter-spacing: 2px;
+        }
+
+        /* 倒计时区域 */
+        .countdown-box {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: rgba(20,20,25,0.6);
+            border: 1px solid #333;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .countdown-title {
+            font-size: 1.2rem;
+            color: #bbb;
+            margin-bottom: 1rem;
+        }
+
+        #countdown {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff4444;
+            letter-spacing: 2px;
+        }
+
+        /* 内容主体 */
+        .container {
+            max-width: 900px;
+            margin: 0 auto 6rem;
+            padding: 0 1.2rem;
+        }
+
+        .section {
+            margin: 4rem 0;
+            padding: 2rem;
+            background: rgba(15,15,20,0.5);
+            border-left: 3px solid #444;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .section h2 {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .section p {
+            color: #ccc;
+            margin: 1rem 0;
+            font-size: 1rem;
+        }
+
+        .highlight {
+            color: #ff4444;
+            font-weight: bold;
+        }
+
+        .case-info {
+            color: #aaa;
+            font-style: italic;
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        /* 标语 */
+        .slogan {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #fff;
+            margin: 3rem 0;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
+
+        /* 跳转按钮 */
+        .btn-box {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .jump-btn {
+            background: #1a1a22;
+            color: #ff4444;
+            border: 1px solid #444;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .jump-btn:hover {
+            background: #252530;
+            color: #ff6666;
+            border-color: #ff4444;
+        }
+
+        /* 底部 */
+        .footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #181818;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.8rem;
+                letter-spacing: 4px;
+            }
+            #countdown {
+                font-size: 1.5rem;
+            }
+            .section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1 class="title">归途·七日咒</h1>
+        <div class="subtitle">七日轮回 · 归途将至</div>
+    </div>
+
+    <!-- 倒计时：距离 2024-12-15 00:00 -->
+    <div class="countdown-box">
+        <div class="countdown-title">距离仪式终结倒计时</div>
+        <div id="countdown"></div>
+    </div>
+
+    <div class="slogan">七年一轮回，七日赴归途</div>
+
+    <div class="container">
+        <!-- 案件背景 -->
+        <div class="section">
+            <h2>青石镇七日弑子案 · 案发记录</h2>
+            <p class="case-info">案发时间：2017年12月15日，冬至前夕</p>
+            <p>一场无人知晓起源的诡异仪式，在江南青石镇的浓雾中悄然展开。</p>
+            <p>年轻母亲<strong>林婉清</strong>，被无形的力量牵引，在七天之内逐步完成被称为「归元」的黑暗仪式。</p>
+            <p>无人知晓仪式目的，无人窥见幕后推手。</p>
+            <p>直至第七日，她亲手杀害了自己年仅三岁的女儿。</p>
+            <p>此案震动全城，被媒体称为——<span class="highlight">青石镇七日弑子案</span>。</p>
+            <p>真相被掩埋，仪式被中断，怨念与诅咒沉入时间缝隙，等待七年轮回。</p>
+        </div>
+
+        <!-- 游戏开端 -->
+        <div class="section">
+            <h2>游戏开端 · 不该存在的搜索记录</h2>
+            <p class="case-info">当前时间：2024年12月8日，星期一</p>
+            <p>距离冬至，还有一周。</p>
+            <p>距离那场惨案，整整七年。</p>
+            <p>你如常打开浏览器，却在历史记录里，发现了一条绝不该存在的搜索词：</p>
+            <p style="text-align:center; font-size:1.2rem; margin:1.5rem 0;" class="highlight">「青石镇 七日 女童」</p>
+            <p>你没有搜过。</p>
+            <p>你甚至从未听过青石镇，更不知道那桩被世人遗忘的惨案。</p>
+            <p><strong>但从你看见这条记录的那一刻起，游戏已经开始。</strong></p>
+            <p>七日倒计时，正式启动。</p>
+        </div>
+
+        <!-- 核心设定 -->
+        <div class="section">
+            <h2>七年一轮回 · 仪式必须终结</h2>
+            <p>第一章，由此拉开序幕。</p>
+            <p>七天。从12月8日到12月15日。</p>
+            <p>一天一道谜题，一步一次靠近。</p>
+            <p>你将在网页、代码、碎片信息、隐藏线索中，追溯当年真相，揭开仪式秘密，触碰林婉清被操控的人生，以及那名三岁女童未能安息的灵魂。</p>
+            <p><strong>第七日的终点，设在12月15日零点。</strong></p>
+            <p>与七年前案发当日，分秒不差，完全重合。</p>
+            <p>这便是「七年一轮回」的真正含义：</p>
+            <p>当年未完成的仪式，必须在同一个日期，被终结。</p>
+            <p>你不是旁观者。你是踏入轮回的人。</p>
+            <p>七日之内，你必须找到归途。</p>
+            <p>否则，轮回将永远继续。</p>
+        </div>
+    </div>
+
+    <!-- 底部跳转按钮 -->
+    <div class="btn-box">
+        <button class="jump-btn" onclick="window.location.href='电脑桌面.html'">进入电脑桌面</button>
+    </div>
+
+    <div class="footer">
+        归途·七日咒 © 2024 | 网页解密游戏
+    </div>
+
+    <script>
+        // 倒计时：目标时间 2024-12-15 00:00:00
+        function countdown() {
+            const target = new Date('2024-12-15 00:00:00').getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').innerText = '仪式已终结 · 轮回落幕';
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerText = 
+                `${d}天 ${h}时 ${m}分 ${s}秒`;
+        }
+
+        countdown();
+        setInterval(countdown, 1000);
+    </script>
+
+</body>
+</html>
